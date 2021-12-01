@@ -11,7 +11,7 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 	int d;
 
 	if (tree == NULL)
-		return (0);
+		return (1);
 	d = branch_depth(tree->left);
 	return (actual_perfect(tree, d, 1));
 }
