@@ -44,6 +44,8 @@ int branch_depth(const binary_tree_t *tree)
 
 int actual_perfect(const binary_tree_t *tree, int d, int level)
 {
+	if (tree == NULL)
+		return (0);
 	if (tree->left == NULL && tree->right == NULL)
 		return (d == level + 1);
 
