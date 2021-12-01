@@ -13,7 +13,7 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 	if (tree == NULL)
 		return (0);
 	d = branch_depth(tree->left);
-	return (actual_perfect(tree, d, 0));
+	return (actual_perfect(tree, d, 1));
 }
 
 /**
@@ -48,10 +48,8 @@ int actual_perfect(const binary_tree_t *tree, int d, int level)
 		return (d == level + 1);
 
 	if (tree->left == NULL || tree->right == NULL)
-		return (1);
+		return (d == level - 1);
 
-	if (actual_perfect(tree->left, d, level + 1) ==
-			actual_perfect(tree->right, d, level + 1))
-		return (1);
-	return (0);
+	return (actual_perfect(tree->left, d, level + 1) ==
+			actual_perfect(tree->right, d, level + 1));
 }
