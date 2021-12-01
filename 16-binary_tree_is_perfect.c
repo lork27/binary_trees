@@ -13,7 +13,7 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 	if (tree == NULL)
 		return (0);
 	d = branch_depth(tree->left);
-	return (actual_perfect(tree, d, 0));
+	return (actual_perfect(tree, d, 1));
 }
 
 /**
