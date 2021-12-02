@@ -1,6 +1,6 @@
 #include "binary_trees.h"
-int branch_depth(const binary_tree_t *tree);
-int actual_perfect(const binary_tree_t *tree, int d, int level);
+
+size_t binary_tree_height(const binary_tree_t *tree);
 /**
  * binary_tree_is_perfect - finds balance of a binary tree
  * @tree: pointer to the root node
@@ -8,48 +8,35 @@ int actual_perfect(const binary_tree_t *tree, int d, int level);
  */
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
-	int d = 0;
-
-	if (tree == NULL)
-		return (0);
-	d = branch_depth(tree->left);
-	return (actual_perfect(tree, d, 1));
-}
-
-/**
- *branch_depth - returns left branch depth
- *@tree: root node of branch
- *Return: depth of branch
- */
-
-int branch_depth(const binary_tree_t *tree)
-{
-	int d = 0;
-
-	while (tree != NULL)
+	if (tree)
 	{
-		d++;
-		tree = tree->left;
+		if (binary_tree_is_height(tree->left) ==
+		binary_tree_is_height(tree->right))
+		{
+			return(1)
+		}
+		return (0);
 	}
-	return (d);
+	return (0);
 }
 
 /**
- *actual_perfect - where I actually check if its perfect
- *@tree: root node of bt
- *@d: length of left branch
- *@level: starts a 0 counts traversal
- *Return: 1 if perfect 0 if not
+ * binary_tree_height - measures height of BT
+ * @tree: pointer to the root node
+ * Return: size of tree
  */
-
-int actual_perfect(const binary_tree_t *tree, int d, int level)
+size_t binary_tree_height(const binary_tree_t *tree)
 {
-	if (tree->left == NULL && tree->right == NULL)
-		return (d == level + 1);
+	size_t lh;
+	size_t rh;
 
-	if (tree->left == NULL || tree->right == NULL)
-		return (d == level - 1);
+	if (!tree || (tree->left == NULL && tree->right == NULL))
+		return (0);
+	lh = binary_tree_height(tree->left);
+	rh = binary_tree_height(tree->right);
 
-	return (actual_perfect(tree->left, d, level + 1) ==
-			actual_perfect(tree->right, d, level + 1));
+	if (lh >= rh)
+		return (lh + 1);
+	else
+		return (rh + 1);
 }
